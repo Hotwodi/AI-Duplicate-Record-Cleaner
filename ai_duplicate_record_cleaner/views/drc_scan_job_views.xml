@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Scan Job: Tree View -->
+    <record id="drc_scan_job_tree" model="ir.ui.view">
+        <field name="name">drc.scan.job.tree</field>
+        <field name="model">drc.scan.job</field>
+        <field name="arch" type="xml">
+            <tree string="Scan Jobs">
+                <field name="name"/>
+                <field name="model_name"/>
+                <field name="scan_state" widget="badge"
+                       decoration-info="scan_state == 'draft'"
+                       decoration-warning="scan_state == 'running'"
+                       decoration-success="scan_state == 'done'"/>
+                <field name="duplicates_found"/>
+                <field name="records_scanned"/>
+                <field name="created_by"/>
+                <field name="created_date"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Scan Job: Form View -->
+    <record id="drc_scan_job_form" model="ir.ui.view">
+        <field name="name">drc.scan.job.form</field>
+        <field name="model">drc.scan.job</field>
+        <field name="arch" type="xml">
+            <form string="Scan Job">
+                <header>
+                    <button name="action_start_scan" type="object"
+                            string="Start Scan" class="oe_highlight"
+                            invisible="scan_state != 'draft'"/>
+                    <button name="action_reset_scan" type="object"
+                            string="Reset" invisible="scan_state == 'draft'"/>
+                    <field name="scan_state" widget="statusbar"
+                           statusbar_visible="draft,running,done"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_start_scan" type="object"
+                                class="oe_stat_button" icon="fa-play"
+                                invisible="scan_state != 'draft'">
+                            <div class="oe_stat_button">
+                                <span class="o_stat_text">Start</span>
+                            </div>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" placeholder="e.g. Partner Duplicate Scan"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="model_name" placeholder="e.g. res.partner"/>
+                            <field name="match_fields" placeholder="name, email, phone"/>
+                            <field name="matching_rule_id"/>
+                        </group>
+                        <group>
+                            <field name="fuzzy_matching"/>
+                            <field name="similarity_threshold" widget="percentage"/>
+                            <field name="created_by"/>
+                            <field name="created_date"/>
+                        </group>
+                    </group>
+                    <group string="Results">
+                        <group>
+                            <field name="records_scanned"/>
+                            <field name="duplicates_found"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Duplicate Groups" name="duplicate_groups">
+                            <field name="duplicate_group_ids">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="record_count"/>
+                                    <field name="group_score"/>
+                                    <field name="ai_confidence"/>
+                                    <field name="merge_state" widget="badge"
+                                           decoration-info="merge_state == 'pending'"
+                                           decoration-success="merge_state == 'merged'"
+                                           decoration-muted="merge_state == 'ignored'"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Scan Job: Action -->
+    <record id="drc_scan_job_action" model="ir.actions.act_window">
+        <field name="name">Scan Jobs</field>
+        <field name="res_model">drc.scan.job</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first duplicate scan job
+            </p>
+            <p>
+                Scan jobs detect duplicate records across any Odoo model
+                using configurable match fields and fuzzy matching.
+            </p>
+        </field>
+    </record>
+</odoo>

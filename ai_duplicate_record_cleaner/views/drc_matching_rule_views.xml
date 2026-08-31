@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Matching Rule: Tree View -->
+    <record id="drc_matching_rule_tree" model="ir.ui.view">
+        <field name="name">drc.matching.rule.tree</field>
+        <field name="model">drc.matching.rule</field>
+        <field name="arch" type="xml">
+            <tree string="Matching Rules">
+                <field name="name"/>
+                <field name="model_name"/>
+                <field name="rule_type" widget="badge"
+                       decoration-info="rule_type == 'exact'"
+                       decoration-warning="rule_type == 'fuzzy'"
+                       decoration-success="rule_type == 'phonetic'"
+                       decoration-primary="rule_type == 'composite'"/>
+                <field name="active" widget="boolean_toggle"/>
+                <field name="last_run"/>
+                <field name="duplicates_detected"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Matching Rule: Form View -->
+    <record id="drc_matching_rule_form" model="ir.ui.view">
+        <field name="name">drc.matching.rule.form</field>
+        <field name="model">drc.matching.rule</field>
+        <field name="arch" type="xml">
+            <form string="Matching Rule">
+                <header>
+                    <button name="action_run_rule" type="object"
+                            string="Run Rule" class="oe_highlight"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_run_rule" type="object"
+                                class="oe_stat_button" icon="fa-cogs">
+                            <div class="oe_stat_button">
+                                <span class="o_stat_text">Run</span>
+                            </div>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" placeholder="e.g. Partner Fuzzy Match Rule"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="model_name" placeholder="e.g. res.partner"/>
+                            <field name="rule_type"/>
+                            <field name="active" widget="boolean_toggle"/>
+                        </group>
+                        <group>
+                            <field name="last_run" readonly="1"/>
+                            <field name="duplicates_detected" readonly="1"/>
+                        </group>
+                    </group>
+                    <group string="Field Weights"
+                           invisible="rule_type != 'composite'">
+                        <field name="field_weights" nolabel="1"
+                               placeholder='{"name": 0.5, "email": 0.3, "phone": 0.2}'/>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Matching Rule: Action -->
+    <record id="drc_matching_rule_action" model="ir.actions.act_window">
+        <field name="name">Matching Rules</field>
+        <field name="res_model">drc.matching.rule</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first matching rule
+            </p>
+            <p>
+                Matching rules define how duplicate detection works for each
+                model — exact, fuzzy, phonetic, or composite with field weights.
+            </p>
+        </field>
+    </record>
+</odoo>

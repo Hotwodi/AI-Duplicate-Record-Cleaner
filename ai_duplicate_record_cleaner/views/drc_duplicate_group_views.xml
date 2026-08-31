@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Duplicate Group: Tree View -->
+    <record id="drc_duplicate_group_tree" model="ir.ui.view">
+        <field name="name">drc.duplicate.group.tree</field>
+        <field name="model">drc.duplicate.group</field>
+        <field name="arch" type="xml">
+            <tree string="Duplicate Groups">
+                <field name="name"/>
+                <field name="model_name"/>
+                <field name="record_count"/>
+                <field name="group_score"/>
+                <field name="ai_confidence"/>
+                <field name="suggested_master"/>
+                <field name="merge_state" widget="badge"
+                       decoration-info="merge_state == 'pending'"
+                       decoration-success="merge_state == 'merged'"
+                       decoration-muted="merge_state == 'ignored'"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Duplicate Group: Form View -->
+    <record id="drc_duplicate_group_form" model="ir.ui.view">
+        <field name="name">drc.duplicate.group.form</field>
+        <field name="model">drc.duplicate.group</field>
+        <field name="arch" type="xml">
+            <form string="Duplicate Group">
+                <header>
+                    <button name="action_merge_group" type="object"
+                            string="Merge Group" class="oe_highlight"
+                            invisible="merge_state != 'pending'"/>
+                    <button name="action_ignore_group" type="object"
+                            string="Ignore" invisible="merge_state != 'pending'"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" placeholder="e.g. Duplicate Partner Group #1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="model_name"/>
+                            <field name="record_count"/>
+                            <field name="suggested_master"/>
+                        </group>
+                        <group>
+                            <field name="group_score" widget="percentage"/>
+                            <field name="ai_confidence" widget="percentage"/>
+                            <field name="merge_state" widget="badge"
+                                   decoration-info="merge_state == 'pending'"
+                                   decoration-success="merge_state == 'merged'"
+                                   decoration-muted="merge_state == 'ignored'"/>
+                            <field name="scan_job_id"/>
+                        </group>
+                    </group>
+                    <group string="Record IDs">
+                        <field name="record_ids" nolabel="1"
+                               placeholder="Comma-separated list of record IDs in this group"/>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Duplicate Group: Action -->
+    <record id="drc_duplicate_group_action" model="ir.actions.act_window">
+        <field name="name">Duplicate Groups</field>
+        <field name="res_model">drc.duplicate.group</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No duplicate groups found yet
+            </p>
+            <p>
+                Duplicate groups are created by scan jobs and contain
+                records identified as potential duplicates.
+            </p>
+        </field>
+    </record>
+</odoo>

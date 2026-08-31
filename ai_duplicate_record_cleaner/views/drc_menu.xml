@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Root Menu: Duplicate Cleaner -->
+    <menuitem id="menu_drc_root"
+              name="Duplicate Cleaner"
+              sequence="90"
+              web_icon="ai_duplicate_record_cleaner,static/description/icon.png"/>
+
+    <!-- Submenu: Scan Jobs -->
+    <menuitem id="menu_drc_scan_jobs"
+              name="Scan Jobs"
+              parent="menu_drc_root"
+              action="drc_scan_job_action"
+              sequence="10"/>
+
+    <!-- Submenu: Duplicate Groups -->
+    <menuitem id="menu_drc_duplicate_groups"
+              name="Duplicate Groups"
+              parent="menu_drc_root"
+              action="drc_duplicate_group_action"
+              sequence="20"/>
+
+    <!-- Submenu: Merge History -->
+    <menuitem id="menu_drc_merge_history"
+              name="Merge History"
+              parent="menu_drc_root"
+              action="drc_merge_history_action"
+              sequence="30"/>
+
+    <!-- Submenu: Matching Rules -->
+    <menuitem id="menu_drc_matching_rules"
+              name="Matching Rules"
+              parent="menu_drc_root"
+              action="drc_matching_rule_action"
+              sequence="40"/>
+</odoo>

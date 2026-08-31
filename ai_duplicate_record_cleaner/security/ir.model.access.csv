@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_drc_scan_job_user,drc.scan.job.user,model_drc_scan_job,base.group_user,1,1,1,1
+access_drc_duplicate_group_user,drc.duplicate.group.user,model_drc_duplicate_group,base.group_user,1,1,1,1
+access_drc_merge_history_user,drc.merge.history.user,model_drc_merge_history,base.group_user,1,1,1,1
+access_drc_matching_rule_user,drc.matching.rule.user,model_drc_matching_rule,base.group_user,1,1,1,1
