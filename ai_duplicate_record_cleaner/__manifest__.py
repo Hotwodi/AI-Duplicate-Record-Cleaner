@@ -2,6 +2,7 @@
 {
     'name': 'AI Duplicate Record Cleaner',
     'version': '18.0.1.0.0',
+    'images': ['static/description/cover.png'],
     'summary': 'Detect, group, and merge duplicate records using AI-powered fuzzy matching.',
     'description': """
 AI Duplicate Record Cleaner
