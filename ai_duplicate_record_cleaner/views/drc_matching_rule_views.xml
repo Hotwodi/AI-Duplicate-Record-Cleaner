@@ -5,7 +5,7 @@
         <field name="name">drc.matching.rule.tree</field>
         <field name="model">drc.matching.rule</field>
         <field name="arch" type="xml">
-            <tree string="Matching Rules">
+            <list string="Matching Rules">
                 <field name="name"/>
                 <field name="model_name"/>
                 <field name="rule_type" widget="badge"
@@ -16,7 +16,7 @@
                 <field name="active" widget="boolean_toggle"/>
                 <field name="last_run"/>
                 <field name="duplicates_detected"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -73,7 +73,7 @@
     <record id="drc_matching_rule_action" model="ir.actions.act_window">
         <field name="name">Matching Rules</field>
         <field name="res_model">drc.matching.rule</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Create your first matching rule

@@ -8,7 +8,7 @@ _logger = logging.getLogger(__name__)
 class DrcMergeHistory(models.Model):
     _name = 'drc.merge.history'
     _description = 'Merge History'
-    _inherit = ['mail.thread']
+    _inherit = ['mail.thread', 'mail.activity.mixin']
     _order = 'merge_date desc'
 
     name = fields.Char(

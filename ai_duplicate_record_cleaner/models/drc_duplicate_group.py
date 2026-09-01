@@ -8,7 +8,7 @@ _logger = logging.getLogger(__name__)
 class DrcDuplicateGroup(models.Model):
     _name = 'drc.duplicate.group'
     _description = 'Duplicate Group'
-    _inherit = ['mail.thread']
+    _inherit = ['mail.thread', 'mail.activity.mixin']
     _order = 'group_score desc'
 
     name = fields.Char(

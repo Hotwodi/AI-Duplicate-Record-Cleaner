@@ -8,7 +8,7 @@ _logger = logging.getLogger(__name__)
 class DrcMatchingRule(models.Model):
     _name = 'drc.matching.rule'
     _description = 'Matching Rule'
-    _inherit = ['mail.thread']
+    _inherit = ['mail.thread', 'mail.activity.mixin']
     _order = 'name'
 
     name = fields.Char(

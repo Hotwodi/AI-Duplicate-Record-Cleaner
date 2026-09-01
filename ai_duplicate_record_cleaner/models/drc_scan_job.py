@@ -9,7 +9,7 @@ _logger = logging.getLogger(__name__)
 class DrcScanJob(models.Model):
     _name = 'drc.scan.job'
     _description = 'Duplicate Scan Job'
-    _inherit = ['mail.thread']
+    _inherit = ['mail.thread', 'mail.activity.mixin']
     _order = 'created_date desc'
 
     name = fields.Char(
